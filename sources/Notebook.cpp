@@ -198,23 +198,20 @@ void Notebook::erase(int page, int row, int column, Direction dir, int chars) {
 }
 
 void Notebook::show(int page) const {
-    if (page<0){
+    if (page < 0) {
         throw invalid_argument{"invalid page, can't be negative"};
     }
-    if (borders.find(page)!= borders.end()) {
+    if (borders.find(page) != borders.end()) {
         for (int i = borders.at(page).first; i < borders.at(page).second; ++i) {
             for (int j = 0; j < border; ++j) {
                 string position = to_string(page) + "." + to_string(i) + "." + to_string(j);
                 if (my_nootbook.find(position) != my_nootbook.end()) {
                     cout << my_nootbook.at(position);
+                } else {
+                    cout << "_";
                 }
-            }else{
-                cout << "_";
             }
-        }
-    }
-        cout<<endl;
+            cout << endl;
         }
     }
 }
-
