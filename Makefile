@@ -34,6 +34,9 @@ StudentTest2.cpp:  # Orel Zelmer
 StudentTest3.cpp:  # Ofri Tavor
 	curl https://raw.githubusercontent.com/Unusual55/CPP_Ex2_a/main/Test.cpp > $@
 
+main: Main.o $(OBJECTS)
+		$(CXX) $(CXXFLAGS) $^ -o main
+
 tidy:
 	clang-tidy $(SOURCES) $(TIDY_FLAGS) --
 

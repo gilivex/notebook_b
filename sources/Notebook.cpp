@@ -153,6 +153,8 @@ void Notebook::erase(int page, int row, int column, Direction dir, int chars) {
         if (column + chars-1 > border){
             throw out_of_range{"column is out of range must be less then 100"};
         }
+
+        //updating the borders - must be also in erase because it's allowed to erase in an unwritten spot, so we must observe on any erase
         if (borders.find(page) == borders.end()){
             borders[page].first = row;
             borders[page].second = row;
@@ -198,20 +200,20 @@ void Notebook::erase(int page, int row, int column, Direction dir, int chars) {
 }
 
 void Notebook::show(int page) const {
-    if (page < 0) {
+    if (page<0){
         throw invalid_argument{"invalid page, can't be negative"};
     }
-    if (borders.find(page) != borders.end()) {
-        for (int i = borders.at(page).first; i < borders.at(page).second; ++i) {
+    if (borders.find(page)!= borders.end()) {
+        for (int i = borders.at(page).first; i <= borders.at(page).second; ++i) {
             for (int j = 0; j < border; ++j) {
                 string position = to_string(page) + "." + to_string(i) + "." + to_string(j);
                 if (my_nootbook.find(position) != my_nootbook.end()) {
                     cout << my_nootbook.at(position);
-                } else {
-                    cout << "_";
-                }
+            }else{
+                cout << "_";
             }
-            cout << endl;
         }
-    }
+        cout<<endl;
+        }
+}
 }
